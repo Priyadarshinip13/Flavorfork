@@ -1,0 +1,64 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+   
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+   
+    body {
+        background-color: #fff7e6;
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+    h2 {
+        color: #ff6600;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ffcc99;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #ffe0cc;
+        color: #ff6600;
+    }
+
+    tr:nth-child(even) {
+        background-color: #fff3e6;
+    }
+</style>
+
+<h2>Flavor-fork - Order Bill</h2>
+<p><strong>Customer:</strong> {{ user.username }}</p>
+<p><strong>Date:</strong> {{ timestamp }}</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart_items %}
+        <tr>
+            <td>{{ item.menu_item.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td> ₹ {{ item.subtotal }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="2"><strong>Total</strong></td>
+            <td><strong>₹ {{ total_price }}</strong></td>
+        </tr>
+    </tbody>
+</table>

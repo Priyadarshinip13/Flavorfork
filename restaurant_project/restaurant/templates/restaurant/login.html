@@ -1,0 +1,26 @@
+{% extends 'restaurant/base.html' %}
+{% block content %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+   
+    body {
+        background-color: #fff7e6;
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+    .container mt-5{
+        border-radius: 20%;
+    }
+</style>
+ 
+<div class="container mt-5" style="max-width: 450px;">
+    <h2 class="text-center text-orange mb-4">Login</h2>
+    <form method="post" class="shadow p-4 rounded bg-white">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-orange w-100">Login</button>
+    </form>
+    <p class="text-center mt-3">New here? <a href="{% url 'register' %}">Register</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}MyRestaurant{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Animate.css for entrance animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+   
+    body {
+        background: (to bottom right, #ad6601, #ff6600);
+        font-family: 'Poppins', sans-serif !important;
+    }
+        .navbar {
+            background-color: #fa7c28;
+            justify-content: center;
+            align-items: center;
+        }
+        .navbar .nav-link, .navbar .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+            justify-content: center;
+            align-items: center;
+        }
+        .navbar .btn-outline-light {
+            border-color: white;
+            color: white;
+        }
+        .btn-orange {
+            background-color: #ff6600;
+            color: white;
+            font-weight: bold;
+            border: none;
+        }
+        .btn-orange:hover {
+            background-color: #e65c00;
+        }
+        .fade-in-left {
+            animation: fadeInLeft 1s ease-out;
+        }
+        @keyframes fadeInLeft {
+            0% { opacity: 0; transform: translateX(-30px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        .btn-orange {
+        background-color: #ff6600;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        font-weight: bold;
+        border-radius: 30px;
+        margin-top: 20px;
+        transition: 0.3s ease;
+    }
+
+    .btn-orange:hover {
+        background-color: #e65c00;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .menu-section {
+        padding: 60px 20px;
+        background-color: #fff3e0;
+        text-align: center;
+        animation: fadeInUp 1s ease-out;
+    }
+
+    .menu-section h2 {
+        font-size: 2.5rem;
+        color: #ff6600;
+        font-weight: 600;
+        margin-bottom: 40px;
+    }
+
+    .footer {
+        background-color: #ff6600;
+        color: white;
+        padding: 30px 20px;
+        text-align: center;
+        font-size: 14px;
+    }
+    .food-highlight {
+    background: #fff;
+    text-align: center;
+    padding: 80px 20px 60px;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+.food-highlight h2 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #f99600;
+}
+
+.food-highlight p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px 0 30px;
+}
+
+.food-highlight img.floating-img {
+    position: absolute;
+    width: 120px;
+    z-index: 0;
+}
+
+.food-highlight .burger {
+    top: -40px;
+    left: 60px;
+    transform: rotate(-10deg);
+}
+
+.food-highlight .pizza {
+    bottom: 20px;
+    right: 50px;
+    transform: rotate(15deg);
+}
+
+.food-highlight .stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.food-highlight .stat-item {
+    background: #fffaf0;
+    border-radius: 20px;
+    padding: 20px 30px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    min-width: 180px;
+}
+
+.food-highlight .stat-item h4 {
+    font-size: 1.5rem;
+    color: #2d2d2d;
+    margin: 0;
+}
+
+.food-highlight .stat-item small {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.food-highlight .stat-item img {
+    width: 40px;
+    margin-bottom: 10px;
+}
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg shadow">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Flavorork</a>
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'menu' %}">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'view_cart' %}">Cart</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link">Hi, {{ user.username }}</a></li>
+                        <li class="nav-item"><a class="btn btn-outline-light btn-sm" href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="btn btn-outline-light btn-sm me-2" href="{% url 'login' %}">Login</a></li>
+                        <li class="nav-item"><a class="btn btn-outline-light btn-sm" href="{% url 'register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mt-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success text-center">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Page Content -->
+        <div class="fade-in-left">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <section class="food-highlight">
+    <!-- Floating food images -->
+
+
+    <!-- Headline and Description -->
+    <h2>Better food for more people</h2>
+    <p>For over a decade, we’ve enabled our customers to discover new tastes, delivered right to their doorstep.</p>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat-item">
+            <img src="/static/icons/shop.png" alt="restaurant">
+            <h4>3,00,000+</h4>
+            <small>restaurants</small>
+        </div>
+        <div class="stat-item">
+            <img src="/static/icons/location.png" alt="city">
+            <h4>800+</h4>
+            <small>cities</small>
+        </div>
+        <div class="stat-item">
+            <img src="/static/icons/order.png" alt="orders">
+            <h4>3 billion+</h4>
+            <small>orders delivered</small>
+        </div>
+    </div>
+</section>
+
+<div class="footer">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    Flavor-fork - 123 Food Street, Davanagere, Karnataka<br>
+    Contact: +91 98765 43210 | flavorfork@example.com<br>
+    © 2025 Flavor-fork. All rights reserved.
+</div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

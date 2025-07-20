@@ -1,0 +1,143 @@
+{% extends 'restaurant/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+    .register-container {
+        max-width: 450px;
+        margin: 60px auto;
+        background-color: #fff;
+        padding: 35px 30px;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(255, 165, 0, 0.2);
+        animation: slideIn 0.5s ease-out;
+        align-items: center;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h2 {
+        text-align: center;
+        color: #ff6600;
+        font-weight: 700;
+        margin-bottom: 25px;
+    }
+
+    .form-label {
+        font-weight: 600;
+    }
+
+    .form-control {
+        border-radius: 12px;
+        justify-items: center;
+    }
+
+    .btn-orange {
+        background-color: #ff6600;
+        color: white;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .btn-orange:hover {
+        background-color: #e65c00;
+    }
+
+    .google-btn {
+        background-color: white;
+        color: #333;
+        border: 1px solid #ddd;
+        width: 100%;
+        border-radius: 10px;
+        padding: 12px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 15px;
+        text-decoration: none;
+    }
+
+    .google-btn:hover {
+        background-color: #caccd4;
+
+    }
+
+    .error-msg {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<div class="register-container">
+    <h2>Create Account</h2>
+
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+
+        <div class="mb-3">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {% for error in form.username.errors %}
+                <div class="error-msg">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {% for error in form.email.errors %}
+                <div class="error-msg">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+            {% for error in form.password1.errors %}
+                <div class="error-msg">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+            {% for error in form.password2.errors %}
+                <div class="error-msg">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-orange mt-2">Sign Up</button>
+    </form>
+
+    <hr class="my-4">
+
+    <a href="#" class="google-btn">
+        <img src="https://img.icons8.com/color/20/google-logo.png" class="me-2">
+        Sign up with Google
+    </a>
+    <p class="text-center mt-3">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'restaurant/base.html' %}
+{% block content %}
+<div class="container mt-5" style="max-width: 500px;">
+    <h2 class="text-center text-warning mb-4">Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-warning w-100">Login</button>
+    </form>
+    <p class="text-center mt-3">
+        Don't have an account?
+        <a href="{% url 'register' %}" class="text-decoration-none">Register here</a>
+    </p>
+</div>
+{% endblock %}

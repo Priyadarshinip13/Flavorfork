@@ -1,0 +1,54 @@
+{% extends 'restaurant/base.html' %}
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+   
+    body {
+        background-color: #fff7e6;
+        font-family: 'Poppins', sans-serif !important;
+    }
+    h2 {
+        color: #ff6600;
+        text-shadow: 1px 1px #ffd9b3;
+    }
+
+    .list-group-item {
+        border: 1px solid #ffcc99;
+        background-color: #fffaf5;
+    }
+
+    .btn-orange {
+        background-color: #ff6600;
+        color: white;
+        font-weight: bold;
+        border: none;
+    }
+
+    .btn-orange:hover {
+        background-color: #e65c00;
+    }
+</style>
+
+<div class="container">
+    <h2 class="text-center my-4">🍽️ Order Summary</h2>
+    <ul class="list-group mb-3 shadow">
+        {% for item in cart_items %}
+        <li class="list-group-item d-flex justify-content-between">
+            <div>{{ item.menu_item.name }} × {{ item.quantity }}</div>
+            <div>₹{{ item.subtotal }}</div>
+        </li>
+        {% endfor %}
+        <li class="list-group-item d-flex justify-content-between fw-bold">
+            <span>Total</span>
+            <span>₹{{ total_price }}</span>
+        </li>
+    </ul>
+
+    <p class="text-center">Order placed on <strong>{{ timestamp }}</strong></p>
+
+    <div class="text-center">
+        <a href="{% url 'generate_bill_pdf' %}" class="btn btn-orange">Download Bill PDF</a>
+    </div>
+</div>
+{% endblock %}

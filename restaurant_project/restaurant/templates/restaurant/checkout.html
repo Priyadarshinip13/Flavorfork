@@ -1,0 +1,72 @@
+{% extends 'restaurant/base.html' %}
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+   
+    body {
+        background-color: #fff7e6;
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+    .checkout-box {
+        background-color: white;
+        padding: 40px;
+        max-width: 600px;
+        margin: auto;
+        margin-top: 60px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(255, 102, 0, 0.3);
+        text-align: center;
+    }
+
+    h2 {
+        color: #ff6600;
+    }
+
+    .btn-pay {
+        background-color: #ff6600;
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        margin-top: 20px;
+    }
+
+    .btn-pay:hover {
+        background-color: #e65c00;
+    }
+</style>
+
+<div class="checkout-box">
+    <h2>Order Summary</h2>
+    <p><strong>Total: ₹{{ total_price }}</strong></p>
+    <button id="rzp-button" class="btn-pay">Confirm and Pay</button>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    var options = {
+        "key": "{{ razorpay_key }}",
+        "amount": "{{ amount }}",
+        "currency": "INR",
+        "name": "{{ user.username }}",
+        "description": "Food Order Payment",
+        "order_id": "{{ razorpay_order_id }}",
+        "handler": function (response){
+            alert("Payment successful!");
+            window.location.href = "/generate-bill/";  // Redirect after success
+        },
+        "theme": {
+            "color": "#ff6600"
+        }
+    };
+
+    var rzp = new Razorpay(options);
+    document.getElementById('rzp-button').onclick = function (e) {
+        rzp.open();
+        e.preventDefault();
+    }
+</script>
+{% endblock %}
