@@ -28,7 +28,7 @@ SECRET_KEY = config("DJANGO_SECRETE_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ['flavorfork.onrender.com', '127.0.0.1', 'localhost']
-
+CSRF_TRUSTED_ORIGINS = ['https://flavorfork.onrender.com']
 
 # Application definition
 
